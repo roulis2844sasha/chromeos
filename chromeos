@@ -18,6 +18,14 @@ if [ "$1" == 'swap' ]; then
     echo 'swapon /var/swap' >> /etc/init/swap.conf
     echo 'end script' >> /etc/init/swap.conf
 fi
+if [ "$1" == 'usb' ]; then
+    if [ -f "/usr/bin/unzip" ]; then
+        mkdir /tmp/chromeos
+        cd /tmp/chromeos
+        wget http://go.neverware.com/free -O chromiumos.bin.zip
+        unzip chromiumos.bin.zip
+    fi
+fi
 if [ ! "$1" ]; then
     echo 'help'
 fi
