@@ -1,0 +1,23 @@
+#!/bin/bash
+
+if [ "$1" == 'swap' ]; then
+    if [ "$(id -u)" != "0" ]; then
+       echo "This script must be run as root" 1>&2
+       exit 1
+    fi
+    swap=`cat /proc/meminfo | grep MemTotal | awk '{print $2}'`
+    cd /var
+    mount -o remount,rw /
+    dd if=/dev/zero of=/var/swap bs=1024 count=$[$swap*2]
+    chmod 600 swap
+    mkswap swap
+    swapon /var/swap
+    echo 'start on started boot-services' > /etc/init/swap.conf
+    echo 'stop on stopping boot-services' >> /etc/init/swap.conf
+    echo 'script' >> /etc/init/swap.conf
+    echo 'swapon /var/swap' >> /etc/init/swap.conf
+    echo 'end script' >> /etc/init/swap.conf
+fi
+if [ ! "$1" ]; then
+    echo 'help'
+fi
