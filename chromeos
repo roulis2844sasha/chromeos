@@ -18,6 +18,16 @@ if [ "$1" == 'swap' ]; then
     echo 'swapon /var/swap' >> /etc/init/swap.conf
     echo 'end script' >> /etc/init/swap.conf
 fi
+if [ "$1" == 'ubuntu' ]; then
+    if [ "$(id -u)" != "0" ]; then
+       echo "This script must be run as root" 1>&2
+       exit 1
+    fi
+    mkdir /tmp/chromeos
+    cd /tmp/chromeos
+    wget https://raw.githubusercontent.com/dnschneid/crouton/master/installer/crouton
+    sh crouton -r trusty -t xfce
+fi
 if [ "$1" == 'usb' ]; then
     if [ -f "/usr/bin/unzip" ]; then
         mkdir /tmp/chromeos
@@ -28,4 +38,7 @@ if [ "$1" == 'usb' ]; then
 fi
 if [ ! "$1" ]; then
     echo 'help'
+    echo 'bash chromeos swap - create swap file'
+    echo 'bash chromeos ubuntu - install ubuntu'
+    echo 'bash chromeos usb - create ChromiumOS LiveUSB'
 fi
