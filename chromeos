@@ -28,8 +28,8 @@ if [ "$1" == 'ubuntu' ]; then
     wget https://raw.githubusercontent.com/dnschneid/crouton/master/installer/crouton
     sh crouton -r trusty -t xfce
 fi
-if [ "$1" == 'server' ]; then
-fi
+#if [ "$1" == 'server' ]; then
+#fi
 if [ "$1" == 'usb' ]; then
     if [ -f "/usr/bin/unzip" ]; then
         mkdir /tmp/chromeos
@@ -42,6 +42,6 @@ if [ ! "$1" ]; then
     echo 'help'
     echo 'bash chromeos swap - create swap file'
     echo 'bash chromeos ubuntu - install ubuntu'
-    echo 'bash chromeos server - install web server'
-    echo 'bash chromeos usb - create ChromiumOS LiveUSB'
+    #echo 'bash chromeos server - install web server'
+    #echo 'bash chromeos usb - create ChromiumOS LiveUSB'
 fi
