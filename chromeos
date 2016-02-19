@@ -28,8 +28,18 @@ if [ "$1" == 'ubuntu' ]; then
     wget https://raw.githubusercontent.com/dnschneid/crouton/master/installer/crouton
     sh crouton -r trusty -t xfce
 fi
-#if [ "$1" == 'server' ]; then
-#fi
+if [ "$1" == 'aria2' ]; then
+    if [ "$(id -u)" != "0" ]; then
+       echo "This script must be run as root" 1>&2
+       exit 1
+    fi
+    mkdir /tmp/chromeos
+    cd /tmp/chromeos
+    wget https://github.com/clamsawd/aria2-static-builds/releases/download/v1.20.0/aria2-1.20.0-linux-gnu-32bit-build1.tar.bz2 -O aria2.tar.bz2
+    mount -o remount,rw /
+    tar xvf aria2.tar.bz2 -C /
+    rm -r /tmp/chromeos
+fi
 if [ "$1" == 'usb' ]; then
     if [ -f "/usr/bin/unzip" ]; then
         mkdir /tmp/chromeos
@@ -42,6 +52,7 @@ if [ ! "$1" ]; then
     echo 'help'
     echo 'bash chromeos swap - create swap file'
     echo 'bash chromeos ubuntu - install ubuntu'
+    echo 'bash chromeos server - install aria2'
     #echo 'bash chromeos server - install web server'
     #echo 'bash chromeos usb - create ChromiumOS LiveUSB'
 fi
