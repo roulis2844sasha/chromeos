@@ -1,0 +1,10 @@
+#sudo apt-get install libmcrypt-dev
+#./configure --enable-static --disable-cgi --disable-all --enable-json --enable-session --with-mcrypt --with-curl --with-mysqli
+
+git clone https://git.php.net/repository/php-src.git
+sudo apt-get install build-essential bison libcurl4-gnutls-dev libmcrypt-dev libpng-dev libssl-dev
+./configure --enable-static --with-mysqli --with-mcrypt --with-curl --with-gd --with-iconv --with-pdo-mysql --with-zlib --enable-mbstring
+#./configure --enable-static --with-mysqli --with-mcrypt --with-curl --with-gd --with-iconv --with-openssl --with-pdo-mysql --with-zlib --enable-mbstring
+make -j2
+make install INSTALL_ROOT=/tmp/php
+
